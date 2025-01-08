@@ -1,4 +1,5 @@
 ﻿//Written for Generation Streets. https://store.steampowered.com/app/887970
+using ICSharpCode.SharpZipLib.BZip2;
 using System.IO;
 using System.IO.Compression;
 
@@ -43,7 +44,7 @@ namespace Generation_Streets_Extractor
                 }
                 else if (sub.isCompressed == 2)
                 {
-                    bw.Write(br.ReadBytes(sub.sizeCompressed));
+                    BZip2.Decompress(new MemoryStream(br.ReadBytes(sub.sizeCompressed)), bw.BaseStream, true);
                     bw.Close();
                     n++;
                     continue;
